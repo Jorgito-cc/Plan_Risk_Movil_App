@@ -1,0 +1,39 @@
+name: mobile_plan_risk_3d
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # PAQUETES DE LA APLICACION 
+  cupertino_icons: ^1.0.8
+  model_viewer_plus: ^1.9.3
+  shared_preferences: ^2.5.3
+  provider: ^6.1.5+1
+  google_fonts: ^6.3.0
+  get: ^4.6.6
+  get_storage: ^2.1.1
+  share_plus: ^11.1.0
+  camera: ^0.11.2
+  image_picker: ^1.2.0
+  url_launcher: ^6.3.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/models/
+ 
