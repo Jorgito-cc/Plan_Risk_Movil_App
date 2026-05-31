@@ -7,7 +7,7 @@ class AuthService extends GetConnect {
     httpClient.timeout = const Duration(seconds: 15);
     httpClient.defaultContentType = 'application/json';
   }
-
+// sdasdasd
   Future<Response> register(Map<String, dynamic> body) =>
       post('api/users/auth/registro/', body);
 
