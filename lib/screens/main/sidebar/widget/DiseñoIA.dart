@@ -125,6 +125,23 @@ class _IADisenoScreenState extends State<IADisenoScreen>
             const SnackBar(content: Text('✅ Modelo generado correctamente')),
           );
         }
+      } else if (response.statusCode == 403) {
+        final Map<String, dynamic> errorResp = jsonDecode(responseBody);
+        final errorMessage = errorResp['detail'] ?? 'Límite de proyectos alcanzado.';
+        
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Límite de Proyectos', style: TextStyle(color: Color(0xFFDC5F00))),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text('Entendido', style: TextStyle(color: Color(0xFF1E293B))),
+              ),
+            ],
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error al subir: ${response.statusCode}')),

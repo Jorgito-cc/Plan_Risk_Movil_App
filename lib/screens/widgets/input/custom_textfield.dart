@@ -38,44 +38,45 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       keyboardType: widget.keyboardType,
       validator: widget.validator,
       onChanged: widget.onChanged,
-      style: AppTextStyle.withColor(
-        AppTextStyle.bodyMedium,
-        Theme.of(context).textTheme.bodyLarge!.color!,
-      ),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: AppTextStyle.withColor(
-          AppTextStyle.bodyMedium,
-          isDark ? Colors.grey[400]! : Colors.grey[600]!,
+        labelStyle: TextStyle(
+          color: Colors.white.withOpacity(0.6),
         ),
         prefixIcon: Icon(
           widget.prefixIcon,
-          color: isDark ? Colors.grey[400] : Colors.grey[600],
+          color: Colors.white.withOpacity(0.6),
         ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () => setState(() => _obscureText = !_obscureText),
-                icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                icon: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: Colors.white.withOpacity(0.6),
+                ),
               )
             : null,
+        filled: true,
+        fillColor: Colors.black.withOpacity(0.2),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Color(0xFF06B6D4), width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
         ),
       ),

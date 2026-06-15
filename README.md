@@ -1,241 +1,109 @@
 # Plan Risk Movil
 
-Aplicación móvil multiplataforma desarrollada con Flutter para visualización interactiva de planos arquitectónicos en 3D y evaluación de riesgos en proyectos de construcción.
+Aplicacion movil multiplataforma desarrollada con Flutter para la visualizacion interactiva de planos arquitectonicos en 3D y evaluacion de riesgos en proyectos de construccion, impulsada por inteligencia artificial.
 
-## Descripción del Proyecto
+---
 
-Plan Risk Movil es una herramienta integral diseñada para profesionales en construcción y gestión de proyectos. La aplicación permite:
+## Descripcion del Proyecto
 
-- Visualizar modelos 3D de planos en formato GLB
-- Evaluar automáticamente riesgos usando inteligencia artificial (API Gemini)
-- Gestionar presupuestos y análisis de proyectos
-- Sincronización en tiempo real con servidor backend
-- Autenticación segura y gestión de usuarios
-- Acceso multiplataforma (iOS, Android, Web, Windows, macOS, Linux)
+Plan Risk Movil es la herramienta definitiva para profesionales de la construccion, ingenieros y gestores de proyectos. Esta aplicacion permite llevar el poder del analisis 3D y la prevencion de riesgos directamente en el dispositivo movil.
 
-## Tecnologías
+### Capacidades Destacadas:
+- Visualizacion 3D Avanzada: Renderizado fluido de modelos en formato .glb.
+- Evaluacion con IA: Analisis automatico de riesgos usando la API de Gemini.
+- Presupuestos Inteligentes: Generacion y exportacion de presupuestos y analisis de costos.
+- Sincronizacion en Tiempo Real: Conectado directamente al backend Django.
+- Seguridad y Autenticacion: Inicio de sesion protegido con JWT, recuperacion de contraseñas y gestion de perfiles.
+- Multiplataforma: Listo para compilar en iOS, Android y Web.
 
-- **Framework**: Flutter 3.9+
-- **Lenguaje**: Dart 3.9+
-- **Gestión de Estado**: GetX 4.6+
-- **Visualización 3D**: model_viewer_plus 1.9+
-- **Almacenamiento**: GetStorage 2.1+, Shared Preferences 2.5+
-- **UI**: Material Design con temas claro y oscuro
-- **Tipografía**: Google Fonts 6.3+
+---
 
-## Arquitectura del Proyecto
+## Tecnologias Utilizadas
 
-```
+- Framework: Flutter 3.9+
+- Lenguaje: Dart 3.9+
+- Gestion de Estado: GetX 4.6+
+- Visualizacion 3D: model_viewer_plus 1.9+
+- Almacenamiento Local: GetStorage 2.1+, Shared Preferences 2.5+
+- Diseño: Material Design 3 (con soporte automatico para temas Claro/Oscuro)
+- Tipografia: Google Fonts (Inter, Roboto)
+
+---
+
+## Arquitectura del Proyecto (MVVM con GetX)
+
+El proyecto sigue una arquitectura limpia basada en el patron MVVM (Model-View-ViewModel) estructurado mediante GetX para una separacion clara entre la interfaz grafica y la logica de negocio.
+
+```text
 lib/
-├── main.dart                          # Punto de entrada de la aplicación
-├── api/
-│   └── auth_service.dart              # Servicio de autenticación HTTP
-├── config/
-│   ├── app_themes.dart                # Definición de temas (claro/oscuro)
-│   ├── app_textstyles.dart            # Estilos de texto globales
-│   └── theme_controller.dart          # Controlador de cambio de tema
-├── const/
-│   └── app_constants.dart             # Constantes globales (baseUrl, etc)
-├── model/
-│   └── model3d.dart                   # Modelo de datos para objetos 3D
-├── routes/
-│   └── routes.dart                    # Definición de rutas de navegación
-├── screens/
-│   ├── auth/                          # Pantallas de autenticación
-│   │   ├── controller/
-│   │   │   └── model_controller.dart  # Lógica de modelos 3D
-│   │   ├── models/
-│   │   │   └── user_model.dart        # Modelo de usuario
-│   │   ├── service/
-│   │   │   └── auth_controller.dart   # Control de autenticación
-│   │   └── view/
-│   │       ├── signin_screen.dart
-│   │       ├── sign_up_screen.dart
-│   │       └── forgot_password_screen.dart
-│   ├── dasboard/                      # Panel de control principal
-│   │   ├── models/
-│   │   │   ├── model_info.dart
-│   │   │   ├── model3d_model.dart
-│   │   │   └── modeldetail.dart
-│   │   ├── view/
-│   │   │   └── dashboard_screen.dart
-│   │   └── widgets/
-│   │       ├── model_card.dart
-│   │       └── ModelDetailScreen.dart
-│   ├── main/                          # Pantalla principal de la aplicación
-│   │   ├── main_screen.dart
-│   │   ├── perfil/
-│   │   │   ├── profile_screen.dart
-│   │   │   └── model/
-│   │   │       └── model_item.dart
-│   │   ├── planVisualizador/
-│   │   │   └── visualizador3dPage.dart
-│   │   └── sidebar/
-│   │       ├── view/
-│   │       │   └── sidebar.dart
-│   │       └── widget/
-│   │           ├── ConfigOptionsCard.dart
-│   │           ├── DiseñoIA.dart
-│   │           ├── mis_modelos_section.dart
-│   │           ├── modelo_detalle_page.dart
-│   │           ├── mymodelopage.dart
-│   │           ├── plan_premiun.dart
-│   │           ├── ProcesamientoScreen.dart
-│   │           └── soporte_ayuda.dart
-│   ├── onboarding/
-│   │   └── onboarding_screen.dart
-│   ├── splash/
-│   │   └── splash_screen.dart
-│   ├── view/
-│   │   └── glb_viewer_page.dart
-│   └── widgets/
-│       ├── input/
-│       │   └── custom_textfield.dart
-│       └── navegacion/
-│           └── pill_bottom_nav.dart
+├── api/          # Conexion al servidor (AuthService, etc.)
+├── config/       # Temas, colores y estilos de texto
+├── const/        # Variables globales y constantes (ej. endpoints)
+├── model/        # Modelos de datos puros
+├── routes/       # Definicion del enrutamiento de la app
+├── screens/      # Modulos de vistas
+│   ├── auth/     # Login, Registro, Recuperacion de contraseña
+│   ├── dasboard/ # Panel principal y estadisticas
+│   ├── main/     # Estructura principal y Sidebar
+│   └── splash/   # Pantalla de carga inicial
+└── widgets/      # Componentes reutilizables (inputs, botones, cards)
 ```
 
-## Patrón de Arquitectura
+---
 
-La aplicación implementa el patrón MVVM (Model-View-ViewModel) con GetX:
+## Instalacion y Despliegue
 
-- **Models**: Estructuras de datos (user_model.dart, model3d.dart, etc)
-- **Views**: Pantallas UI (screens/)
-- **Controllers**: Lógica de negocio y gestión de estado (auth_controller.dart, model_controller.dart)
-- **Services**: Comunicación con APIs y servicios externos (auth_service.dart)
-
-## Requisitos Previos
-
+### Requisitos Previos
 - Flutter SDK >= 3.9.0
 - Dart SDK >= 3.9.0
 - Git
-- Un IDE recomendado (VS Code, Android Studio o IntelliJ IDEA)
 
-## Instalación
+### Pasos de Instalacion
 
 1. Clonar el repositorio:
-```bash
-git clone <url-repositorio>
-cd Plan_Risk_Movil
-```
+   ```bash
+   git clone <url-repositorio>
+   cd Plan_Risk_Movil
+   ```
 
-2. Instalar dependencias:
-```bash
-flutter pub get
-```
+2. Obtener las dependencias:
+   ```bash
+   flutter pub get
+   ```
 
-3. Generar archivos necesarios:
-```bash
-flutter pub run build_runner build
-```
+3. Configurar el entorno:
+   Crea un archivo .env en la raiz del proyecto basandote en el .env-example:
+   ```env
+   BASE_URL=http://tu-servidor:8000/
+   API_KEY=tu_clave_api
+   ENVIRONMENT=development
+   ```
 
-## Comandos Principales
+4. Ejecutar la aplicacion (Desarrollo):
+   ```bash
+   flutter run
+   ```
 
-### Obtener dependencias
-```bash
-flutter pub get
-flutter pub upgrade
-```
+---
 
-### Ejecutar la aplicación
+## Comandos Utiles de Flutter
 
-En desarrollo (con hot reload):
-```bash
-flutter run
-```
+Compilar para Produccion:
+- Android (APK): flutter build apk --release
+- Android (Bundle para Play Store): flutter build appbundle --release
+- iOS: flutter build ios --release
+- Web: flutter build web --release
 
-En dispositivo específico:
-```bash
-flutter run -d <device-id>
-```
+Mantenimiento:
+- Limpiar cache: flutter clean
+- Analizar codigo: flutter analyze
+- Formatear codigo: dart format lib/
 
-Listar dispositivos disponibles:
-```bash
-flutter devices
-```
+---
 
-### Compilar para producción
+## Contribuciones y Licencia
 
-iOS:
-```bash
-flutter build ios --release
-```
-
-Android (APK):
-```bash
-flutter build apk --release
-```
-
-Android (App Bundle):
-```bash
-flutter build appbundle --release
-```
-
-Web:
-```bash
-flutter build web --release
-```
-
-### Análisis y validación
-
-Verificar el código:
-```bash
-flutter analyze
-```
-
-Ejecutar pruebas:
-```bash
-flutter test
-```
-
-Formato de código:
-```bash
-flutter format lib/
-dart format lib/
-```
-
-### Limpiar caché
-```bash
-flutter clean
-```
-
-## Variables de Entorno
-
-Crear archivo `.env` en la raíz del proyecto:
-
-```env
-BASE_URL=http://tu-servidor:8000/
-API_KEY=tu_clave_api
-ENVIRONMENT=development
-```
-
-Ver [.env.example](.env.example) para más variables disponibles.
-
-## Características Principales
-
-- Autenticación con JWT
-- Visualización interactiva de modelos 3D
-- Evaluación automática de riesgos con IA
-- Gestión de presupuestos
-- Panel de usuario personalizado
-- Soporte multiplataforma
-- Temas claro y oscuro adaptativo
-- Almacenamiento local con GetStorage
-
-## Estado del Proyecto
-
-Versión: 1.0.0
-
-En desarrollo activo.
-
-## Contribuidores
-
-- Fournext Team
-
-## Licencia
-
+Desarrollado y mantenido por Fournext Team.
 Todos los derechos reservados.
 
-## Contacto
-
-Para soporte o consultas, contactar al equipo de desarrollo.
+Para soporte tecnico o consultas, contactar al equipo de desarrollo interno.

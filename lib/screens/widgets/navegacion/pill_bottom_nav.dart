@@ -1,5 +1,5 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-
 class PillBottomNav extends StatelessWidget {
   const PillBottomNav({
     super.key,
@@ -12,58 +12,72 @@ class PillBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return SafeArea(
       top: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-        child: Material(
-          color: theme.colorScheme.surface,
-          elevation: 10,
-          shadowColor: Colors.black12,
-          borderRadius: BorderRadius.circular(28),
-          child: Container(
-            height: 68,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(28),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // ===== Inicio / Dashboard =====
-                _NavBtnAnimated(
-                  isActive: index == 0,
-                  activeColor: const Color(0xFFDC5F00),
-                  icon: Icons.note_alt_rounded,
-                  onTap: () => onTap(0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 16,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(28),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+              child: Container(
+                height: 68,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1E293B).withOpacity(0.65), // Dark glass
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.1),
+                    width: 1,
+                  ),
                 ),
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // ===== Inicio / Dashboard =====
+                    _NavBtnAnimated(
+                      isActive: index == 0,
+                      activeColor: const Color(0xFF06B6D4), // Cyan
+                      icon: Icons.dashboard_rounded,
+                      onTap: () => onTap(0),
+                    ),
 
-                // ===== Visualizador 3D =====
-                _NavBtnAnimated(
-                  isActive: index == 1,
-                  activeColor: const Color(0xFF1E293B),
-                  icon: Icons.show_chart_rounded,
-                  onTap: () => onTap(1),
-                ),
+                    // ===== Visualizador 3D =====
+                    _NavBtnAnimated(
+                      isActive: index == 1,
+                      activeColor: const Color(0xFF10B981), // Emerald
+                      icon: Icons.view_in_ar_rounded,
+                      onTap: () => onTap(1),
+                    ),
 
-                // ===== Mis Modelos =====
-                _NavBtnAnimated(
-                  isActive: index == 2,
-                  activeColor: const Color(0xFF1E293B),
-                  icon: Icons.view_in_ar_rounded,
-                  onTap: () => onTap(3),
-                ),
+                    // ===== Perfil =====
+                    _NavBtnAnimated.filled(
+                      isActive: index == 2,
+                      fillColor: const Color(0xFFF59E0B), // Amber
+                      icon: Icons.person_rounded,
+                      onTap: () => onTap(2),
+                    ),
 
-                // ===== Perfil =====
-                _NavBtnAnimated.filled(
-                  isActive: index == 3,
-                  fillColor: const Color(0xFFDC5F00),
-                  icon: Icons.person_rounded,
-                  onTap: () => onTap(2),
+                    // ===== Mis Modelos =====
+                    _NavBtnAnimated(
+                      isActive: index == 3,
+                      activeColor: const Color(0xFF8B5CF6), // Violet
+                      icon: Icons.auto_awesome_rounded,
+                      onTap: () => onTap(3),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
@@ -101,7 +115,7 @@ class _NavBtnAnimated extends StatelessWidget {
     final duration = const Duration(milliseconds: 300);
     final iconColor = filled
         ? Colors.white
-        : (isActive ? activeColor! : Colors.grey.shade500);
+        : (isActive ? activeColor! : const Color(0xFF64748B)); // Gris slate cuando inactivo
 
     return AnimatedScale(
       duration: duration,
@@ -109,7 +123,7 @@ class _NavBtnAnimated extends StatelessWidget {
       curve: Curves.easeOutBack,
       child: AnimatedOpacity(
         duration: duration,
-        opacity: isActive ? 1 : 0.8,
+        opacity: isActive ? 1 : 0.7,
         child: InkWell(
           borderRadius: BorderRadius.circular(24),
           onTap: onTap,
@@ -117,20 +131,20 @@ class _NavBtnAnimated extends StatelessWidget {
           highlightColor: Colors.transparent,
           child: AnimatedContainer(
             duration: duration,
-            curve: Curves.easeOut,
+            curve: Curves.easeOutCubic,
             height: 48,
             width: filled ? 48 : 44,
             decoration: BoxDecoration(
               color: filled
                   ? (isActive
                       ? fillColor!
-                      : fillColor!.withOpacity(0.85))
-                  : Colors.transparent,
+                      : fillColor!.withOpacity(0.5))
+                  : (isActive ? activeColor!.withOpacity(0.15) : Colors.transparent),
               borderRadius: BorderRadius.circular(24),
               boxShadow: filled && isActive
                   ? [
                       BoxShadow(
-                        color: fillColor!.withOpacity(0.3),
+                        color: fillColor!.withOpacity(0.4),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -138,7 +152,7 @@ class _NavBtnAnimated extends StatelessWidget {
                   : [],
             ),
             alignment: Alignment.center,
-            child: Icon(icon, size: 22, color: iconColor),
+            child: Icon(icon, size: 24, color: iconColor),
           ),
         ),
       ),

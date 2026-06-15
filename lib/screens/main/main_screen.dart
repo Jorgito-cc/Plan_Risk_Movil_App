@@ -48,63 +48,30 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-drawer: _isMobile
-    ? Drawer(
-        width: 265,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        child: ClipRRect(
-          // 🔹 curva sutil en el borde derecho
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(32),
-            bottomRight: Radius.circular(32),
-          ),
-          child: Stack(
-            children: [
-              // 🔸 efecto blur de fondo (vidrio suave)
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                child: Container(
-                  color: Colors.black.withOpacity(0.05),
-                ),
-              ),
-
-              // 🔹 cuerpo del sidebar
-              Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFBF5EE), Color(0xFFF1E8DA)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+      backgroundColor: const Color(0xFF0F172A), // Fondo principal oscuro
+      drawer: _isMobile
+          ? Drawer(
+              width: 280,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Sidebar(
+                    selectedIndex: _selectedIndex,
+                    onItemSelected: (index) {
+                      _onItemSelected(index);
+                      Navigator.pop(context);
+                    },
+                    onLogout: () {
+                      _auth.logout();
+                      Get.offAllNamed(AppRoutes.signin);
+                    },
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.07),
-                      blurRadius: 18,
-                      offset: const Offset(3, 4),
-                    ),
-                  ],
-                ),
-                child: Sidebar(
-                  selectedIndex: _selectedIndex,
-                  onItemSelected: (index) {
-                    _onItemSelected(index);
-                    Navigator.pop(context);
-                  },
-                  onLogout: () {
-                    _auth.logout();
-                    Get.offAllNamed(AppRoutes.signin);
-                  },
                 ),
               ),
-            ],
-          ),
-        ),
-      )
-    : null,
-
-
-
+            )
+          : null,
       body: Row(
         children: [
           if (!_isMobile)
@@ -122,60 +89,65 @@ drawer: _isMobile
                 if (_isMobile)
                   SafeArea(
                     bottom: false,
-                    child: Container(
-                      height: 64,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFFFF8F0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            offset: Offset(0, 2),
-                            blurRadius: 4,
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          Builder(
-                            builder: (context) => IconButton(
-                              icon: const Icon(Icons.menu),
-                              onPressed: () => Scaffold.of(context).openDrawer(),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const Expanded(
-                            child: Text(
-                              'Plan Risk 3D',
-                              style: TextStyle(
-                                color: Color(0xFF202020),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                    child: ClipRRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: Container(
+                          height: 64,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF1E293B).withOpacity(0.6),
+                            border: const Border(
+                              bottom: BorderSide(
+                                color: Colors.white12,
+                                width: 1,
                               ),
                             ),
                           ),
-                          IconButton(
-                            tooltip: 'Viewer 3D',
-                            onPressed: () => Get.to(() => const GlbViewerPage()),
-                            icon: const Icon(Icons.view_in_ar),
-                            color: Color(0xFF475569),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Builder(
+                                builder: (context) => IconButton(
+                                  icon: const Icon(Icons.menu_rounded, color: Colors.white),
+                                  onPressed: () => Scaffold.of(context).openDrawer(),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              const Expanded(
+                                child: Text(
+                                  'Plan Risk 3D',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                tooltip: 'Viewer 3D',
+                                onPressed: () => Get.to(() => const GlbViewerPage()),
+                                icon: const Icon(Icons.view_in_ar_rounded),
+                                color: const Color(0xFF94A3B8),
+                              ),
+                              IconButton(
+                                tooltip: 'Perfil',
+                                onPressed: () => _onItemSelected(2),
+                                icon: const Icon(Icons.person_rounded),
+                                color: const Color(0xFF94A3B8),
+                              ),
+                              IconButton(
+                                tooltip: 'Logout',
+                                onPressed: () {
+                                  _auth.logout();
+                                  Get.offAllNamed(AppRoutes.signin);
+                                },
+                                icon: const Icon(Icons.logout_rounded),
+                                color: const Color(0xFFEF4444),
+                              ),
+                            ],
                           ),
-                          IconButton(
-                            tooltip: 'Perfil',
-                            onPressed: () => _onItemSelected(2),
-                            icon: const Icon(Icons.person),
-                            color: Color(0xFF475569),
-                          ),
-                          IconButton(
-                            tooltip: 'Logout',
-                            onPressed: () {
-                              _auth.logout();
-                              Get.offAllNamed(AppRoutes.signin);
-                            },
-                            icon: const Icon(Icons.logout),
-                            color: Color(0xFFEF4444),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

@@ -21,76 +21,101 @@ class SplashScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft, end: Alignment.bottomRight,
-            colors: [
-              Theme.of(context).primaryColor,
-              Theme.of(context).primaryColor.withOpacity(0.8),
-              Theme.of(context).primaryColor.withOpacity(0.6),
-            ],
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned.fill(child: Opacity(opacity: 0.05, child: GridPattern(color: Colors.white))),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TweenAnimationBuilder<double>(
-                    tween: Tween(begin: 0.0, end: 1.0),
-                    duration: const Duration(milliseconds: 1200),
-                    builder: (_, v, __) {
-                      return Transform.scale(
-                        scale: v,
-                        child: Container(
-                          padding: const EdgeInsets.all(24),
-                          decoration: BoxDecoration(
-                            color: Colors.white, shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, spreadRadius: 2, offset: const Offset(0, 4))],
-                          ),
-                          child: Icon(Icons.architecture, size: 48, color: Theme.of(context).primaryColor),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TweenAnimationBuilder<double>(
-                    tween: Tween(begin: 0.0, end: 1.0),
-                    duration: const Duration(milliseconds: 1200),
-                    builder: (_, v, __) => Opacity(
-                      opacity: v,
-                      child: Transform.translate(
-                        offset: Offset(0, 20 * (1 - v)),
-                        child: Column(
-                          children: const [
-                            Text('PLAN RISK', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w300, letterSpacing: 8)),
-                            Text('3D', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: 4)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+      backgroundColor: const Color(0xFF0F172A), // Dark slate
+      body: Stack(
+        children: [
+          // ===== Glowing Orbs =====
+          Positioned(
+            top: -100,
+            left: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF06B6D4).withOpacity(0.2), // Cyan
+                boxShadow: [
+                  BoxShadow(color: const Color(0xFF06B6D4).withOpacity(0.3), blurRadius: 120),
                 ],
               ),
             ),
-            Positioned(
-              bottom: 48, left: 0, right: 0,
-              child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0.0, end: 1.0),
-                duration: const Duration(milliseconds: 1200),
-                builder: (_, v, child) => Opacity(opacity: v, child: child),
-                child: Text(
-                  'generación de estructuras desde planos.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 14, letterSpacing: 2, fontWeight: FontWeight.w300),
-                ),
+          ),
+          Positioned(
+            bottom: -100,
+            right: -100,
+            child: Container(
+              width: 400,
+              height: 400,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF3B82F6).withOpacity(0.15), // Blue
+                boxShadow: [
+                  BoxShadow(color: const Color(0xFF3B82F6).withOpacity(0.25), blurRadius: 120),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          Positioned.fill(child: Opacity(opacity: 0.03, child: GridPattern(color: Colors.white))),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: const Duration(milliseconds: 1200),
+                  builder: (_, v, __) {
+                    return Transform.scale(
+                      scale: v,
+                      child: Container(
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E293B).withOpacity(0.8), // Dark glass
+                          shape: BoxShape.circle,
+                          border: Border.all(color: const Color(0xFF06B6D4).withOpacity(0.5), width: 1.5),
+                          boxShadow: [
+                            BoxShadow(color: const Color(0xFF06B6D4).withOpacity(0.4), blurRadius: 20, spreadRadius: 2, offset: const Offset(0, 4))
+                          ],
+                        ),
+                        child: const Icon(Icons.architecture_rounded, size: 48, color: Color(0xFF06B6D4)), // Cyan
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: const Duration(milliseconds: 1200),
+                  builder: (_, v, __) => Opacity(
+                    opacity: v,
+                    child: Transform.translate(
+                      offset: Offset(0, 20 * (1 - v)),
+                      child: Column(
+                        children: const [
+                          Text('PLAN RISK', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w300, letterSpacing: 8)),
+                          SizedBox(height: 4),
+                          Text('3D', style: TextStyle(color: const Color(0xFF06B6D4), fontSize: 36, fontWeight: FontWeight.w800, letterSpacing: 4)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 48, left: 0, right: 0,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0.0, end: 1.0),
+              duration: const Duration(milliseconds: 1200),
+              builder: (_, v, child) => Opacity(opacity: v, child: child),
+              child: Text(
+                'Generación inteligente de estructuras 3D',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 13, letterSpacing: 1.5, fontWeight: FontWeight.w400),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
