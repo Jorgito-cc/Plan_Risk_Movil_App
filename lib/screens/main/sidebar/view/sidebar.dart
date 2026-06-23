@@ -122,6 +122,13 @@ class Sidebar extends StatelessWidget {
                   accentColor: const Color(0xFF64748B), // Slate
                   onTap: () => onItemSelected(4),
                 ),
+                _SidebarItem(
+                  icon: Icons.smart_toy_rounded,
+                  label: 'Asistente IA (Voz)',
+                  isSelected: selectedIndex == 5,
+                  accentColor: const Color(0xFFEAB308), // Yellow
+                  onTap: () => onItemSelected(5),
+                ),
 
                 const Spacer(),
 

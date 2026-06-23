@@ -6,6 +6,7 @@ import 'package:mobile_plan_risk_3d/screens/main/sidebar/widget/ConfigOptionsCar
 import 'package:mobile_plan_risk_3d/screens/main/sidebar/widget/DiseñoIA.dart';
 import 'package:mobile_plan_risk_3d/screens/main/sidebar/view/sidebar.dart';
 import 'package:mobile_plan_risk_3d/screens/view/glb_viewer_page.dart';
+import 'package:mobile_plan_risk_3d/screens/main/chatbot/chatbot_screen.dart';
 
 import '../auth/service/auth_controller.dart';
 import '../../routes/routes.dart';
@@ -33,7 +34,8 @@ class _MainScreenState extends State<MainScreen> {
    // Center(child: Text('Diseño IA')),
      IADisenoScreen(),
     //Center(child: Text('Configuraciones')),
-    ConfigOptionsCard() , 
+    ConfigOptionsCard(),
+    const ChatbotScreen(),
   ];
 
   void _onItemSelected(int index) {
