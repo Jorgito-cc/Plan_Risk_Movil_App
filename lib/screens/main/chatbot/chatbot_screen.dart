@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:mobile_plan_risk_3d/const/app_constants.dart';
 
 class ChatMessage {
   final String text;
@@ -28,8 +29,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   late stt.SpeechToText _speech;
   bool _isListening = false;
   
-  // Use 10.0.2.2 for Android emulator to connect to localhost
-  final String apiUrl = 'http://10.0.2.2:8000/api/suggestion_risk/chat/';
+  // Use baseUrl from AppConstants for production
+  final String apiUrl = '${AppConstants.baseUrl}api/suggestion_risk/chat/';
 
   @override
   void initState() {

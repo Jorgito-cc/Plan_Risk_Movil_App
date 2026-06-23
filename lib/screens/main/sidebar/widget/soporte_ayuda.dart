@@ -129,7 +129,7 @@ class HelpSupportScreen extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   InkWell(
-                    onTap: () => _openUrl("https://front-sw1.fournext.me/login"),
+                    onTap: () => _openUrl("https://defensasw2.jorgechoquecalle.engineer/login"),
                     child: Container(
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
@@ -142,7 +142,7 @@ class HelpSupportScreen extends StatelessWidget {
                           SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              "Abrir front-sw1.fournext.me",
+                              "Abrir defensasw2.jorgechoquecalle.engineer",
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xFF083D77),

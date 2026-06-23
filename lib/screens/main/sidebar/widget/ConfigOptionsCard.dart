@@ -184,7 +184,7 @@ class ConfigOptionsCard extends StatelessWidget {
                         if (title == 'Nuestros Planes')
                           TextButton(
                             onPressed: () async {
-                              final url = Uri.parse('https://django-sw1.fournext.me/');
+                               final url = Uri.parse('https://defensasw2.jorgechoquecalle.engineer/');
                               if (await canLaunchUrl(url)) {
                                 await launchUrl(url, mode: LaunchMode.externalApplication);
                               }
