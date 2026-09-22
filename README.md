@@ -51,14 +51,27 @@ lib/
 
 ---
 
+## Flujo de Trabajo: De 2D a 3D
+
+La aplicacion permite a los usuarios transformar un plano bidimensional estandar en un modelo tridimensional interactivo con funcionalidades completas. El proceso es el siguiente:
+
+1. **Importacion del Plano:** El usuario selecciona o toma una foto de un plano 2D desde su dispositivo movil.
+   ![Plano 2D de ejemplo](imagnes/plano.jpeg)
+2. **Procesamiento de IA:** El backend procesa la imagen, detecta las paredes, puertas y estructuras utilizando el modelo Mask R-CNN pre-entrenado.
+3. **Generacion 3D:** Se genera un modelo estructural completo en formato `.glb`.
+4. **Visualizacion e Interaccion:** El usuario puede rotar, hacer zoom y recorrer el modelo 3D directamente desde su celular, ademas de obtener un reporte de estimacion de riesgos asociados a la estructura detectada.
+
+---
+
 ## Instalacion y Despliegue
 
 ### Requisitos Previos
 - Flutter SDK >= 3.9.0
 - Dart SDK >= 3.9.0
 - Git
+- Python (Para el backend local)
 
-### Pasos de Instalacion
+### Pasos de Instalacion y Ejecucion
 
 1. Clonar el repositorio:
    ```bash
@@ -71,15 +84,23 @@ lib/
    flutter pub get
    ```
 
-3. Configurar el entorno:
-   Crea un archivo .env en la raiz del proyecto basandote en el .env-example:
+3. Configurar la conexion al Backend Local:
+   Para que la aplicacion movil pueda comunicarse con tu computadora local, debes crear un archivo .env en la raiz del proyecto.
+   En este archivo, debes usar la direccion IP local (IPv4) de tu computadora (por ejemplo, 192.168.0.7), no localhost ni 127.0.0.1.
+   
+   Ejemplo del archivo .env:
    ```env
-   BASE_URL=http://tu-servidor:8000/
-   API_KEY=tu_clave_api
-   ENVIRONMENT=development
+   BASE_URL=http://192.168.0.7:8000/
    ```
 
-4. Ejecutar la aplicacion (Desarrollo):
+4. Ejecutar el Backend (Django):
+   Es obligatorio que el servidor backend acepte conexiones externas en tu red local. Para esto, en la terminal del backend ejecuta:
+   ```bash
+   python manage.py runserver 0.0.0.0:8000
+   ```
+   Nota: Si te da error de hosts, agrega tu IP a la variable ALLOWED_HOSTS en el archivo settings.py del backend.
+
+5. Ejecutar la aplicacion movil (Desarrollo):
    ```bash
    flutter run
    ```

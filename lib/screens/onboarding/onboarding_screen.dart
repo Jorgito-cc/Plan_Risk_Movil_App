@@ -123,7 +123,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
           // ===== Puntos indicadores del slider =====
           Positioned(
-            bottom: 120,
+            bottom: MediaQuery.of(context).padding.bottom + 120,
             left: 0,
             right: 0,
             child: Row(
@@ -147,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
 
           Positioned(
-            bottom: 32,
+            bottom: MediaQuery.of(context).padding.bottom + 32,
             left: 24,
             right: 24,
             child: Row(
